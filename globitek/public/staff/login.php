@@ -18,9 +18,11 @@ if(is_post_request()) {
   if(isset($_POST['password'])) { $password = $_POST['password']; }
 
   // Validations
+  print $username;
+  #$username = mysqli_real_escape_string($username);
   $username = str_replace("\"", "\\\"", $username);
   $username = str_replace("script", "scr.pt", $username);
-  
+  echo $username;
   if (is_blank($username)) {
     $errors[] = "Username cannot be blank.";
   }
