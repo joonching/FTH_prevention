@@ -18,6 +18,9 @@ if(is_post_request()) {
   if(isset($_POST['password'])) { $password = $_POST['password']; }
 
   // Validations
+  $username = str_replace("\"", "\\\"", $username);
+  $username = str_replace("script", "scr.pt", $username);
+  
   if (is_blank($username)) {
     $errors[] = "Username cannot be blank.";
   }
@@ -27,7 +30,6 @@ if(is_post_request()) {
 
   // If there were no errors, submit data to database
   if (empty($errors)) {
-
     $users_result = find_users_by_username($username);
     // No loop, only one result
     $user = db_fetch_assoc($users_result);
@@ -63,6 +65,7 @@ if(is_post_request()) {
   <?php echo display_errors($errors); ?>
 
   <form action="login.php" method="post">
+  <?php echo csrf_token_tag(); ?>
     Username:<br />
     <input type="text" name="username" value="<?php echo $username; ?>" /><br />
     Password:<br />

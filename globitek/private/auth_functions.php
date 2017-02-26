@@ -7,6 +7,7 @@
     if(session_regenerate_id()) {
       $_SESSION['logged_in'] = true;
       $_SESSION['last_login'] = time();
+      $_SESSION['user_agent'] = $_SERVER['HTTP_USER_AGENT'];
     }
     return true;
   }
